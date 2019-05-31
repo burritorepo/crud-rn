@@ -1,13 +1,18 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Button } from 'react-native';
 import { Camera, Permissions } from 'expo';
-
+let pic;
 
 export default class CameraExample extends React.Component {
-  state = {
-    hasCameraPermission: null,
-    type: Camera.Constants.Type.back,
-  };
+  constructor(props) {
+    super(props)
+    this.state = {
+      hasCameraPermission: null,
+      type: Camera.Constants.Type.back,
+      photo: ''
+    };
+  }
+  
 
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -15,17 +20,23 @@ export default class CameraExample extends React.Component {
   }
 
   async snapPhoto() {
-    console.log('Button Pressed');
     if (this.camera) {
       await this.camera.takePictureAsync().then(photo => {
-        photo.exif.Orientation = 1;
         console.log(photo);
+        this.setState({photo})
       });
     }
   }
 
   render() {
     const { hasCameraPermission } = this.state;
+    if (this.state.photo) {
+      // pic = <Image
+      //   style={{ width: 50, height: 50 }}
+      //   source={{ uri: this.state.photo }}
+      // />
+      console.log('this.state.photo', this.state.photo)
+    }
     if (hasCameraPermission === null) {
       return <View />;
     } else if (hasCameraPermission === false) {
@@ -57,13 +68,14 @@ export default class CameraExample extends React.Component {
                   style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
                   {' '}Flip{' '}
                 </Text>
-
-                <Text onPress={this.snapPhoto.bind(this)}>
-                  Capture
-                </Text>
               </TouchableOpacity>
             </View>
           </Camera>
+          <Button onPress={this.snapPhoto.bind(this)} title="Tomar foto" color="red" />
+          <Image
+            style={{ width: undefined, height: 200 }}
+            source={{ uri: this.state.photo.uri }}
+          />
         </View>
       );
     }
