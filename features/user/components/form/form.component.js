@@ -1,6 +1,6 @@
 'use strict'
 import React from "react";
-import ImagePicker from 'react-native-image-picker';
+
 import {
   Text,
   View,
@@ -15,9 +15,19 @@ import {
   color
 } from '../../../../assets/styles';
 
+import 
+  CameraExample
+ from '../../../../components/camera/camera.component'
 
-function launchImage() {
-  console.log('lauch!!!', ImagePicker)
+let camara;
+async function launchImage() {
+  console.log('camara', camara)
+  // let photo = await camara.takePictureAsync();
+  // console.log('photo', photo)
+  // console.log('lauch!!!', ImagePicker)
+  // ImagePicker.showImagePicker((response) => {
+  //   console.log('response', response)
+  // })
   // const options = {
   //   title: 'Select Avatar',
   //   customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
@@ -67,6 +77,7 @@ function FormUser(props) {
 
   return (
     <View>
+      <CameraExample ref={ ref => camara = ref}/>
       <View style={form.row}>
         <Text style={form.label}>Nombre</Text>
         <TextInput
@@ -91,6 +102,7 @@ function FormUser(props) {
           onChangeText={(value) => onChange('avatar', value)}
           value={avatar}
         />
+        
         <Button onPress={launchImage} title="imagen"/>
       </View>
       <View style={form.row}>

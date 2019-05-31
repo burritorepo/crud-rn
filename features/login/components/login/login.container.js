@@ -3,7 +3,8 @@ import {
   Text,
   View,
   TextInput,
-  Button
+  Button,
+  AsyncStorage
 } from 'react-native';
 
 import { 
@@ -28,6 +29,7 @@ class LoginScreen extends Component {
   }
 
   handleSubmit() {
+    AsyncStorage.setItem('userToken', '123');
     this.props.navigation.navigate('App')
   }
 
