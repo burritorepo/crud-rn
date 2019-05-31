@@ -17,6 +17,7 @@ import {
 
 
 function launchImage() {
+  console.log('lauch!!!', ImagePicker)
   // const options = {
   //   title: 'Select Avatar',
   //   customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
@@ -46,9 +47,9 @@ function launchImage() {
   //   }
   // });
 
-  ImagePicker.launchCamera((response) => {
-    // Same code as in above section!
-  });
+  // ImagePicker.launchCamera((response) => {
+  //   // Same code as in above section!
+  // });
 }
 
 function FormUser(props) {
